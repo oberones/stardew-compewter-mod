@@ -1,6 +1,9 @@
 # ComPewter
 
-ComPewter is a Stardew Valley mod concept for an in-game computer assistant. Players can open a computer-like chat interface and ask practical game questions, such as what to plant, where to find a fish, when a villager is available, or which gifts someone likes.
+ComPewter is a Stardew Valley mod concept for an in-game computer assistant.
+Players can open a computer-like chat interface and ask practical game
+questions, such as what to plant, where to find a fish, when a villager is
+available, or which gifts someone likes.
 
 The long-term goal is to let players choose their AI provider:
 
@@ -86,3 +89,10 @@ The current UI is a minimal text-based menu. Good next steps:
 - Ground prompts with live game state
 - Add Generic Mod Config Menu integration
 - Improve the computer art, input handling, scrolling, and response wrapping
+
+## Project Constitution
+
+This project is governed by the ComPewter constitution in
+`.specify/memory/constitution.md`. Feature work must prioritize save safety,
+privacy, stability, vanilla-friendly player experience, and maintainable SMAPI
+architecture.
