@@ -4,6 +4,11 @@
     "tag_format": "v$version",
     "version_scheme": "semver",
     "version": "0.3.0",
+    "version_files": [
+      "manifest.json",
+      "ComPewter.csproj",
+      "docs/nexus-page.md"
+    ],
     "update_changelog_on_bump": true,
     "major_version_zero": true
   }
