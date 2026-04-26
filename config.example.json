@@ -1,8 +1,44 @@
 {
+  "SchemaVersion": 1,
   "OpenMenuKey": "F8",
-  "Provider": "OpenAI",
-  "Model": "",
-  "ApiKey": "",
-  "Endpoint": "",
-  "SystemPrompt": "You are ComPewter, a helpful in-game Stardew Valley assistant. Give concise, practical answers about crops, villagers, fishing, mining, crafting, and daily planning. If exact game data may vary by version or mods, say so."
+  "Provider": "Disabled",
+  "RequestTimeoutSeconds": 30,
+  "MaxResponseTokens": 700,
+  "MaxRetainedMessages": 20,
+  "DebugLogging": false,
+  "RestrictToStardewTopics": true,
+  "Privacy": {
+    "ShareGameContext": false,
+    "AllowSpoilers": false,
+    "IncludeFriendshipData": false,
+    "IncludeInstalledMods": false,
+    "IncludeMultiplayerData": false,
+    "RetainConversationHistory": true
+  },
+  "Ui": {
+    "UiScale": 1.0,
+    "ShowContextEnableHint": true
+  },
+  "Anthropic": {
+    "BaseUrl": "https://api.anthropic.com",
+    "Model": "",
+    "ApiKey": ""
+  },
+  "OpenAI": {
+    "BaseUrl": "https://api.openai.com",
+    "Model": "",
+    "ApiKey": ""
+  },
+  "Ollama": {
+    "BaseUrl": "http://localhost:11434",
+    "Model": ""
+  },
+  "Custom": {
+    "BaseUrl": "",
+    "EndpointPath": "",
+    "Model": "",
+    "AuthHeaderName": "",
+    "AuthToken": "",
+    "RequestFormat": "OpenAICompatible"
+  }
 }

@@ -6,7 +6,18 @@
     <AssemblyName>ComPewter</AssemblyName>
     <RootNamespace>ComPewter</RootNamespace>
     <Version>0.1.0</Version>
+    <Description>An in-game Stardew Valley computer assistant with configurable AI providers.</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="tests/**/*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="config.example.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="docs/**/*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.*" PrivateAssets="All" />

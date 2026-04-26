@@ -1,29 +1,17 @@
 # ComPewter
 
-ComPewter is a Stardew Valley mod concept for an in-game computer assistant.
-Players can open a computer-like chat interface and ask practical game
-questions, such as what to plant, where to find a fish, when a villager is
-available, or which gifts someone likes.
+ComPewter is a Stardew Valley SMAPI mod that adds an in-game farm computer chat assistant. Players can open the chat with `F8`, ask practical gameplay questions, and route answers through their chosen AI provider.
 
-The long-term goal is to let players choose their AI provider:
+The first implementation is intentionally save-safe: it uses a hotkey-only computer interface, writes no custom objects into saves, persists no chat history, and defaults to `Disabled` until the player configures a provider.
 
-- Anthropic
-- OpenAI
-- Ollama
-- Custom OpenAI-compatible endpoint
+## Features
 
-## Current State
-
-This repository contains the initial SMAPI mod scaffold:
-
-- SMAPI manifest and C# project file
-- Config model with provider, model, API key, endpoint, and open-menu key
-- AI provider interface and factory
-- Placeholder provider implementation
-- Basic in-game chat menu opened with `F8`
-- Console command fallback: `compewter <question>`
-
-Live provider calls are intentionally stubbed for now. The scaffold is ready for provider-specific HTTP clients and Stardew data grounding.
+- Custom in-game chat menu with keyboard input, scrolling, loading, success, and friendly error states.
+- Provider-agnostic AI client architecture for Anthropic, OpenAI, Ollama, and OpenAI-compatible custom endpoints.
+- Strongly typed `config.json` with safe defaults, validation, timeout handling, max response length, and bounded session history.
+- Optional local game context collection for date, season, weather, luck, money, skills, location, inventory, quests, progression, friendships, and installed mods.
+- Soft Stardew-topic guardrails that redirect clearly unrelated questions while preserving Stardew-adjacent topics.
+- Privacy-first defaults: game context sharing is off until enabled, spoiler-heavy answers are off by default, and secrets are redacted from logs.
 
 ## Requirements
 
@@ -33,66 +21,53 @@ Live provider calls are intentionally stubbed for now. The scaffold is ready for
 
 ## Build
 
-From this folder:
-
 ```sh
 dotnet build
 ```
 
-The `Pathoschild.Stardew.ModBuildConfig` package handles Stardew/SMAPI references and build output conventions.
+The SMAPI mod build package copies the debug build to the configured Stardew Valley `Mods/ComPewter` folder and creates a zip package under `bin/Debug/net6.0/`.
 
-## Install Locally
+## Setup
 
-After building, copy the built mod output into your Stardew Valley `Mods` folder, or configure your local build output using SMAPI mod build settings.
+1. Install/build the mod.
+2. Launch Stardew Valley once so SMAPI creates `config.json`.
+3. Edit `config.json`.
+4. Set `Provider` to `Anthropic`, `OpenAI`, `Ollama`, or `Custom`.
+5. Fill in the provider model, key/token, and base URL where needed.
+6. Press `F8` in-game to open ComPewter.
 
-The mod creates/reads `config.json` with these settings. A safe template is included as `config.example.json`:
+Context sharing is one of ComPewter's most useful features, but it is privacy-sensitive. To enable context-aware answers, set:
 
 ```json
 {
-  "OpenMenuKey": "F8",
-  "Provider": "OpenAI",
-  "Model": "",
-  "ApiKey": "",
-  "Endpoint": "",
-  "SystemPrompt": "You are ComPewter, a helpful in-game Stardew Valley assistant..."
+  "Privacy": {
+    "ShareGameContext": true
+  }
 }
 ```
 
-## Planned Provider Behavior
+See `docs/provider-setup.md` and `docs/privacy.md` for details.
 
-Provider implementations should convert the shared chat history into each provider's request format:
+## Current Scope
 
-- `Anthropic`: use Messages API with a configured model and API key.
-- `OpenAI`: use Chat Completions or Responses API with a configured model and API key.
-- `Ollama`: use the local Ollama HTTP API, usually at `http://localhost:11434`.
-- `Custom`: call a user-specified endpoint, preferably using an OpenAI-compatible schema.
+ComPewter v1 opens from a hotkey rather than a placed computer object. This keeps the first release safe for existing saves while the provider, chat, privacy, and context systems settle.
 
-API keys should remain local in `config.json` and should never be committed.
+Known limitations:
 
-## Planned Game Knowledge
+- No controller-specific UI polish yet.
+- No custom sprite/object/furniture is added yet.
+- No persisted chat history in v1.
+- Custom providers currently use an OpenAI-compatible chat-completions shape.
 
-The assistant should eventually ground answers in Stardew Valley data instead of relying only on model memory. Useful sources include:
+## Documentation
 
-- Crop data and seasons
-- Fish locations, times, weather, and seasons
-- NPC gift tastes and schedules
-- Bundles, crafting recipes, and quests
-- Current save context, such as day, season, weather, location, inventory, and known villagers
+- `docs/quickstart.md`
+- `docs/provider-setup.md`
+- `docs/privacy.md`
+- `docs/troubleshooting.md`
+- `docs/uninstall.md`
+- `docs/architecture.md`
 
-## Development Notes
+## Constitution
 
-The current UI is a minimal text-based menu. Good next steps:
-
-- Add real provider HTTP implementations
-- Add request cancellation and timeouts
-- Persist chat history per save
-- Ground prompts with live game state
-- Add Generic Mod Config Menu integration
-- Improve the computer art, input handling, scrolling, and response wrapping
-
-## Project Constitution
-
-This project is governed by the ComPewter constitution in
-`.specify/memory/constitution.md`. Feature work must prioritize save safety,
-privacy, stability, vanilla-friendly player experience, and maintainable SMAPI
-architecture.
+This project is governed by `.specify/memory/constitution.md`. Feature work must prioritize save safety, privacy, stability, vanilla-friendly player experience, and maintainable SMAPI architecture.

@@ -4,16 +4,46 @@ namespace ComPewter.Config;
 
 public sealed class ModConfig
 {
+    public int SchemaVersion { get; set; } = 1;
+
     public SButton OpenMenuKey { get; set; } = SButton.F8;
 
-    public AiProviderType Provider { get; set; } = AiProviderType.OpenAI;
+    public AiProviderType Provider { get; set; } = AiProviderType.Disabled;
 
-    public string Model { get; set; } = string.Empty;
+    public int RequestTimeoutSeconds { get; set; } = 30;
 
-    public string ApiKey { get; set; } = string.Empty;
+    public int MaxResponseTokens { get; set; } = 700;
 
-    public string Endpoint { get; set; } = string.Empty;
+    public int MaxRetainedMessages { get; set; } = 20;
 
-    public string SystemPrompt { get; set; } =
-        "You are ComPewter, a helpful in-game Stardew Valley assistant. Give concise, practical answers about crops, villagers, fishing, mining, crafting, and daily planning. If exact game data may vary by version or mods, say so.";
+    public bool DebugLogging { get; set; } = false;
+
+    public bool RestrictToStardewTopics { get; set; } = true;
+
+    public PrivacySettings Privacy { get; set; } = new();
+
+    public UiSettings Ui { get; set; } = new();
+
+    public ProviderSettings Anthropic { get; set; } = new()
+    {
+        BaseUrl = "https://api.anthropic.com",
+        Model = string.Empty
+    };
+
+    public ProviderSettings OpenAI { get; set; } = new()
+    {
+        BaseUrl = "https://api.openai.com",
+        Model = string.Empty
+    };
+
+    public ProviderSettings Ollama { get; set; } = new()
+    {
+        BaseUrl = "http://localhost:11434",
+        Model = string.Empty
+    };
+
+    public ProviderSettings Custom { get; set; } = new()
+    {
+        RequestFormat = "OpenAICompatible"
+    };
 }

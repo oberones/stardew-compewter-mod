@@ -1,4 +1,4 @@
-namespace ComPewter.Models;
+namespace ComPewter.Sessions;
 
 public enum ChatRole
 {
