@@ -16,6 +16,12 @@
 
 - implement ComPewter chat assistant
 
+## v0.3.2 (2026-04-26)
+
+### Fix
+
+- update makefile and build process
+
 ## v0.3.1 (2026-04-26)
 
 ### Fix

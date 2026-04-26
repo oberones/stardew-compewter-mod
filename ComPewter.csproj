@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <AssemblyName>ComPewter</AssemblyName>
     <RootNamespace>ComPewter</RootNamespace>
-    <Version>0.3.1</Version>
+    <Version>0.3.2</Version>
     <Description>An in-game Stardew Valley computer assistant with configurable AI providers.</Description>
   </PropertyGroup>
 
