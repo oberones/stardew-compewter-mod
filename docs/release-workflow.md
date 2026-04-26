@@ -45,9 +45,9 @@ make publish
 - verify the working tree is clean
 - build the Release zip locally
 - create the version tag if it does not already exist
-- verify an existing tag points at `HEAD`
+- reuse the version tag if it already exists
 - push `main`
-- push the version tag
+- push the version tag only if it is not already on GitHub
 - create the GitHub release, or replace the uploaded zip if the release already exists
 
 The release tag is derived from `manifest.json`. For example, version `0.3.1` publishes tag `v0.3.1`.

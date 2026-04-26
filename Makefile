@@ -9,7 +9,7 @@ TAG := v$(VERSION)
 PACKAGE_PATH := bin/$(CONFIGURATION)/$(TARGET_FRAMEWORK)/$(MOD_NAME) $(VERSION).zip
 RELEASE_NOTES ?= CHANGELOG.md
 
-.PHONY: help build package verify-release ensure-tag publish clean
+.PHONY: help build package verify-release ensure-tag push-tag publish clean
 
 help:
 	@echo "ComPewter release helpers"
@@ -42,22 +42,22 @@ verify-release:
 
 ensure-tag:
 	@if git rev-parse --verify --quiet "refs/tags/$(TAG)" >/dev/null; then \
-	  tag_commit="$$(git rev-list -n 1 "$(TAG)")"; \
-	  head_commit="$$(git rev-parse HEAD)"; \
-	  if [ "$$tag_commit" != "$$head_commit" ]; then \
-	    echo "Tag $(TAG) exists but does not point to HEAD."; \
-	    echo "Move it intentionally with: git tag -f $(TAG) && git push origin $(TAG) --force"; \
-	    exit 1; \
-	  fi; \
 	  echo "Using existing tag $(TAG)."; \
 	else \
 	  git tag -a "$(TAG)" -m "$(MOD_NAME) $(TAG)"; \
 	  echo "Created tag $(TAG)."; \
 	fi
 
+push-tag:
+	@if git ls-remote --exit-code --tags origin "refs/tags/$(TAG)" >/dev/null 2>&1; then \
+	  echo "Remote tag $(TAG) already exists; leaving it unchanged."; \
+	else \
+	  git push origin "$(TAG)"; \
+	fi
+
 publish: verify-release package ensure-tag
 	git push origin main
-	git push origin "$(TAG)"
+	$(MAKE) push-tag
 	@if gh release view "$(TAG)" >/dev/null 2>&1; then \
 	  gh release upload "$(TAG)" "$(PACKAGE_PATH)" --clobber; \
 	  echo "Updated GitHub release asset for $(TAG)."; \
