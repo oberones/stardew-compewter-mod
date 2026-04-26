@@ -130,7 +130,7 @@ ComPewter v1 does not add custom objects, furniture, recipes, mail flags, persis
 
 - Confirm `manifest.json` version matches the zip version.
 - Add Nexus mod ID to `UpdateKeys` after the Nexus page exists.
-- Upload the generated `ComPewter 0.3.0.zip`.
+- Upload the generated `ComPewter 0.3.1.zip`.
 - Mark SMAPI as a requirement.
 - Include the network/privacy notice near the top of the description.
 - Contact Nexus Mods support if requested due to intentional provider network access.
