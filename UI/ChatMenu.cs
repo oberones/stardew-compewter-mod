@@ -139,13 +139,19 @@ public sealed class ChatMenu : IClickableMenu
             50);
 
         IClickableMenu.drawTextureBox(b, inputBox.X, inputBox.Y, inputBox.Width, inputBox.Height, Color.White);
-        string prompt = this.sessionManager.IsRequestInFlight ? "Waiting for an answer..." : $"> {this.input.Text}_";
+        string prompt = this.sessionManager.IsRequestInFlight ? "Waiting for an answer..." : $"> {this.input.Text}{this.GetBlinkingCursor()}";
         Utility.drawTextWithShadow(
             b,
             Game1.parseText(prompt, Game1.smallFont, inputBox.Width - 24),
             Game1.smallFont,
             new Vector2(inputBox.X + 12, inputBox.Y + 12),
             Game1.textColor);
+    }
+
+    private string GetBlinkingCursor()
+    {
+        double milliseconds = Game1.currentGameTime?.TotalGameTime.TotalMilliseconds ?? 0;
+        return ((int)(milliseconds / 500) % 2) == 0 ? "_" : " ";
     }
 
     private void Submit()
