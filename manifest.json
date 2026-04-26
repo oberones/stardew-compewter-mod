@@ -1,0 +1,10 @@
+{
+  "Name": "ComPewter",
+  "Author": "Oberon",
+  "Version": "0.1.0",
+  "Description": "An in-game computer assistant that answers Stardew Valley questions through a chat interface.",
+  "UniqueID": "Oberon.ComPewter",
+  "EntryDll": "ComPewter.dll",
+  "MinimumApiVersion": "4.0.0",
+  "UpdateKeys": []
+}

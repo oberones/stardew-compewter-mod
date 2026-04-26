@@ -1,0 +1,7 @@
+bin/
+obj/
+*.zip
+config.json
+*.user
+*.suo
+.DS_Store
