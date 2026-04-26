@@ -149,6 +149,7 @@ By default, ComPewter does not intentionally send player names, farm names, save
 - `docs/uninstall.md`: save-safety and removal notes
 - `docs/architecture.md`: developer architecture
 - `docs/nexus-page.md`: draft Nexus Mods page text
+- `docs/release-workflow.md`: local release publishing with `make publish`
 
 ## Building From Source
 
@@ -157,3 +158,15 @@ dotnet build
 ```
 
 The SMAPI mod build package copies the build to the configured Stardew Valley `Mods/ComPewter` folder and creates a zip under `bin/Debug/net6.0/`.
+
+To build a local release zip without deploying to Stardew:
+
+```sh
+make package
+```
+
+To publish the current `manifest.json` version as a GitHub release:
+
+```sh
+make publish
+```
