@@ -27,6 +27,14 @@ public sealed class ChatSessionManager
         this.promptBuilder = promptBuilder;
         this.contextService = contextService;
         this.logger = logger;
+
+        if (this.config.Privacy.ShareGameContext)
+        {
+            this.session.Add(new ChatMessage(
+                ChatRole.Assistant,
+                "Context sharing is on. ComPewter may send relevant game details like season, weather, money, skills, location, inventory, quests, and progression to your selected provider. Set Privacy.ShareGameContext to false in config to disable it.",
+                ChatMessageStatus.Info));
+        }
     }
 
     public IReadOnlyList<ChatMessage> Messages => this.session.Messages;

@@ -4,7 +4,7 @@ namespace ComPewter.Config;
 
 public sealed class ModConfig
 {
-    public int SchemaVersion { get; set; } = 1;
+    public int SchemaVersion { get; set; } = 2;
 
     public SButton OpenMenuKey { get; set; } = SButton.F8;
 

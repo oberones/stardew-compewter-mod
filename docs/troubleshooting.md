@@ -30,7 +30,7 @@ For Custom providers, confirm the endpoint returns OpenAI-compatible JSON with `
 
 ## Context is not affecting answers
 
-Enable:
+Confirm this is enabled:
 
 ```json
 {

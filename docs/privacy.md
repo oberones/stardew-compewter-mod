@@ -1,6 +1,16 @@
 # Privacy
 
-ComPewter sends only the player question by default. Local game context sharing is off until the player enables `Privacy.ShareGameContext`.
+ComPewter includes relevant local game context by default because current-save guidance is one of the mod's core features. At the start of a new chat, ComPewter shows an in-chat notice explaining how to disable `Privacy.ShareGameContext`.
+
+To disable automatic game context sharing:
+
+```json
+{
+  "Privacy": {
+    "ShareGameContext": false
+  }
+}
+```
 
 ## Context Sent When Enabled
 

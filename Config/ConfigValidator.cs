@@ -4,7 +4,7 @@ namespace ComPewter.Config;
 
 public sealed class ConfigValidator
 {
-    public const int CurrentSchemaVersion = 1;
+    public const int CurrentSchemaVersion = 2;
 
     private readonly IMonitor monitor;
 
@@ -17,6 +17,13 @@ public sealed class ConfigValidator
     {
         config ??= new ModConfig();
         bool changed = false;
+
+        if (config.SchemaVersion < 2)
+        {
+            config.Privacy ??= new PrivacySettings();
+            config.Privacy.ShareGameContext = true;
+            changed = true;
+        }
 
         if (config.SchemaVersion < CurrentSchemaVersion)
         {

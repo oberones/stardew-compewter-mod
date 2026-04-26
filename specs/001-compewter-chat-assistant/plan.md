@@ -30,7 +30,8 @@ in-game acceptance matrix
 **Performance Goals**: No network work per tick; provider calls do not freeze
 gameplay; one in-flight request per chat session; repeated submits create zero
 extra provider requests while pending  
-**Constraints**: Provider default Disabled; context sharing default Off; no
+**Constraints**: Provider default Disabled; context sharing default On with an
+in-chat disable notice; no
 secrets in logs or save data; hotkey-only v1 access; current-session history
 only; no AI-driven world mutation  
 **Scale/Scope**: Single local player UI session at a time; multiplayer-safe
@@ -48,8 +49,9 @@ Custom, and Disabled
   save dependency.
 - **Provider Agnosticism**: PASS. Provider behavior is isolated behind a common
   interface; UI and gameplay code consume normalized request/result models.
-- **Privacy**: PASS. Provider default Disabled, context sharing default Off,
-  sensitive categories opt-in, and logs redact secrets and prompt bodies.
+- **Privacy**: PASS. Provider default Disabled, context sharing default On with
+  an opt-out notice, sensitive categories opt-in, and logs redact secrets and
+  prompt bodies.
 - **Gameplay Knowledge**: PASS. Prompt builder prefers local context when
   enabled, instructs uncertainty, and frames AI answers as guidance.
 - **Local Context**: PASS. Context is collected on demand when submitting a
@@ -234,7 +236,7 @@ Default values:
   "Provider": "Disabled",
   "RequestTimeoutSeconds": 30,
   "MaxResponseTokens": 700,
-  "ShareGameContext": false,
+  "ShareGameContext": true,
   "AllowSpoilers": false,
   "RetainConversationHistory": true,
   "MaxRetainedMessages": 20,
@@ -275,7 +277,7 @@ Validation rules:
 - v1 history is in-memory only regardless of retention setting;
 - provider selected but missing required model/key/url -> no request, friendly
   setup message;
-- context sharing default Off; enabling must be easy to discover in docs/UI;
+- context sharing default On; disabling must be easy to discover in docs/UI;
 - debug logging default Off and still secret-redacted.
 
 Optional Generic Mod Config Menu:
@@ -428,7 +430,7 @@ Missing/corrupt handling:
 ## Privacy and Security Plan
 
 - Provider default Disabled.
-- Context sharing default Off, with obvious opt-in guidance.
+- Context sharing default On, with obvious opt-out guidance.
 - Never log API keys, tokens, auth headers, full prompts, full request bodies,
   or response bodies that may include player context.
 - Redact likely secrets in all diagnostics.

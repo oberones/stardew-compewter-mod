@@ -19,14 +19,15 @@ network calls or setup failures.
 **Alternatives considered**: Default Ollama for local-first behavior; default
 OpenAI with setup message. Both are less privacy-explicit and can surprise users.
 
-## Decision: Context sharing defaults Off but must be prominent
+## Decision: Context sharing defaults On with opt-out notice
 
-**Rationale**: Game context is one of the mod's main values, but it can leave the
-machine. Default Off preserves trust; prominent setup guidance makes the useful
-path obvious.
+**Rationale**: Game context is one of the mod's main values and makes ComPewter
+feel meaningfully different from a generic chatbot. Default On gives players
+the expected current-save guidance immediately; an in-chat notice and docs make
+the privacy tradeoff and disable path obvious.
 
-**Alternatives considered**: Basic context On by default; all non-sensitive
-context On by default. Both send gameplay state before explicit player consent.
+**Alternatives considered**: Context Off by default. Rejected because it hides
+one of ComPewter's core benefits and makes first answers feel generic.
 
 ## Decision: Current-session chat history only
 

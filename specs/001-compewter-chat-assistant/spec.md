@@ -11,7 +11,7 @@
 
 - Q: What first-version access path should ComPewter use for the in-game computer? → A: Config hotkey opens the ComPewter chat; placeable/obtainable computer is future work.
 - Q: What provider should ComPewter use by default? → A: Default provider is Disabled; player must explicitly configure a provider.
-- Q: What should the default game-context sharing behavior be? → A: Context sharing defaults Off, but enabling it must be easy and obvious because context-aware answers are a core value of the mod.
+- Q: What should the default game-context sharing behavior be? → A: Context sharing defaults On because context-aware answers are a core value of the mod, and each new chat must clearly explain how to disable it.
 - Q: How should ComPewter retain chat history in the first version? → A: Current session only; no chat history persisted to save data.
 - Q: How should ComPewter handle multiple submitted questions while a request is pending? → A: One in-flight request per chat session; disable submit until response or error.
 
@@ -57,7 +57,7 @@ a helpful setup message without crashing.
 **Acceptance Scenarios**:
 
 1. **Given** the provider is set to Disabled or required settings are missing, **When** the player asks a question, **Then** ComPewter displays a helpful setup message instead of failing.
-2. **Given** game-context sharing is disabled by default, **When** the player asks a question, **Then** provider-bound content excludes local game context beyond the player's typed question and required assistant instructions.
+2. **Given** game-context sharing is disabled in config, **When** the player asks a question, **Then** provider-bound content excludes local game context beyond the player's typed question and required assistant instructions.
 3. **Given** conversation history retention is disabled, **When** the player asks multiple questions, **Then** only the current question and required instructions are considered for the provider request.
 4. **Given** invalid config values are present, **When** the mod loads, **Then** safe defaults are used and the player receives clear guidance through logs or UI where appropriate.
 
@@ -82,7 +82,7 @@ context sharing is enabled.
 1. **Given** context sharing is enabled, **When** the player asks "What should I do today?", **Then** the assistant considers available current-state details such as season, weather, day, money, and inventory summary.
 2. **Given** spoiler mode is disabled, **When** the player asks a broad progression question, **Then** the assistant avoids revealing spoiler-heavy details unless the player explicitly asks for them.
 3. **Given** context sharing is enabled but a context category is unavailable, **When** the player asks a question that could use that category, **Then** the assistant still answers and does not imply unavailable data was known.
-4. **Given** context sharing is disabled, **When** the player opens ComPewter or receives a generic answer that would benefit from game state, **Then** the mod makes the context-sharing option easy to discover without enabling it automatically.
+4. **Given** context sharing is enabled, **When** the player opens a new ComPewter chat, **Then** the mod explains that context is shared and tells the player how to disable it.
 
 ---
 
@@ -174,8 +174,8 @@ reload, optionally remove the mod, and confirm the save remains playable.
 - **FR-023**: Provider-bound content MUST remain reasonably compact by limiting context categories and retained messages according to configuration.
 - **FR-024**: When context sharing is enabled, ComPewter MUST be able to include relevant local game state categories such as date, season, year, day of week, weather, tomorrow's weather when available, daily luck, money, farm type, current location, skills, inventory summary, active quests, allowed friendship data, community progress, progression flags, installed mods list when enabled, and spoiler preference.
 - **FR-025**: When context sharing is disabled, ComPewter MUST exclude automatic local game context from provider-bound content.
-- **FR-026**: Context sharing MUST default to Off.
-- **FR-027**: The mod MUST make context sharing easy to discover and enable through player-facing setup guidance or in-chat setup messaging.
+- **FR-026**: Context sharing MUST default to On.
+- **FR-027**: The mod MUST make context sharing easy to understand and disable through player-facing setup guidance or in-chat setup messaging.
 - **FR-028**: The player MUST be able to separately control sensitive context categories, including friendship data, installed mod list, and multiplayer player data if those categories are ever supported.
 - **FR-029**: Conversation history retention MUST be limited to the current game session in the first version.
 - **FR-030**: Current-session conversation history MUST be bounded by a configurable maximum message count.
@@ -198,8 +198,8 @@ reload, optionally remove the mod, and confirm the save remains playable.
 - **Privacy Impact**: Provider-bound content may include the player's typed
   question, assistant instructions, enabled conversation history, and enabled
   local game context. Automatic context sharing MUST be configurable and may be
-  fully disabled. Context sharing MUST default Off and MUST be easy to discover
-  and enable because context-aware answers are a primary value of ComPewter.
+  fully disabled. Context sharing MUST default On and MUST be easy to understand
+  and disable because context-aware answers are a primary value of ComPewter.
   Sensitive personal, machine, save, farm, player, and
   multiplayer identity data MUST be excluded by default.
 - **Save-Safety Impact**: The hotkey chat access MUST be safe for new saves,
@@ -243,7 +243,7 @@ reload, optionally remove the mod, and confirm the save remains playable.
 - **SC-004**: No-provider, invalid-key, timeout, malformed-response, rate-limit, unavailable-provider, and unavailable-Ollama scenarios all show player-facing messages and do not crash the game.
 - **SC-005**: With context sharing enabled, answers to the same daily-planning question differ appropriately across at least two different seasons or weather states.
 - **SC-006**: With context sharing disabled, provider-bound content excludes automatic local game context in every privacy acceptance check.
-- **SC-006A**: A tester can find how to enable context sharing from player-facing setup guidance or in-chat setup messaging in under 60 seconds.
+- **SC-006A**: A tester can find how to disable context sharing from player-facing setup guidance or in-chat setup messaging in under 60 seconds.
 - **SC-007**: With spoiler mode disabled, at least 9 of 10 broad progression prompts in the manual spoiler acceptance set avoid spoiler-heavy details unless the player's question explicitly asks for them.
 - **SC-008**: Current-session conversation history never exceeds the configured retained message limit after repeated use and is not restored after restarting the game.
 - **SC-009**: The mod can be added to an existing save, used, saved, reloaded, and removed without making the save unplayable.
@@ -254,7 +254,7 @@ reload, optionally remove the mod, and confirm the save remains playable.
 - The first version uses a configurable hotkey as the access path and documents placeable or obtainable computer objects as future work.
 - Shared multiplayer behavior may be limited to local/private chat interactions in the first version.
 - Provider-specific account creation, billing, and model availability are handled outside the mod.
-- The default provider is Disabled, context sharing defaults Off, the path to enable context sharing is prominent, and sensitive categories require explicit opt-in.
+- The default provider is Disabled, context sharing defaults On with a prominent disable notice, and sensitive categories require explicit opt-in.
 - Chat history is current-session only in the first version and is not persisted to save data.
 - The assistant provides gameplay guidance only and does not automate world-changing decisions.
 - Local game data and installed mods may change exact gameplay truth; answers should acknowledge uncertainty when relevant.

@@ -10,7 +10,7 @@ Fields:
 - `Provider`: `Disabled`, `Anthropic`, `OpenAI`, `Ollama`, or `Custom`.
 - `RequestTimeoutSeconds`: integer, clamped 5-120, default 30.
 - `MaxResponseTokens`: integer, clamped 100-4000, default 700.
-- `ShareGameContext`: boolean, default false.
+- `ShareGameContext`: boolean, default true.
 - `AllowSpoilers`: boolean, default false.
 - `RetainConversationHistory`: boolean, controls current-session history sent
   to provider, default true.
@@ -175,6 +175,6 @@ Fields:
 - `RetainConversationHistory`
 
 Rules:
-- context sharing defaults false;
+- context sharing defaults true with an in-chat disable notice;
 - sensitive categories default false;
 - provider-bound output excludes disallowed categories.

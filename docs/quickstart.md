@@ -88,16 +88,16 @@ Custom providers must use an OpenAI-compatible chat response format in v1.
 }
 ```
 
-## 4. Enable Game Context
+## 4. Review Game Context Sharing
 
-ComPewter can answer much better Stardew questions when it knows your current season, weather, money, skills, inventory, quests, and progression. This is off by default for privacy.
+ComPewter can answer much better Stardew questions when it knows your current season, weather, money, skills, inventory, quests, and progression. This is on by default because it is one of the mod's most useful features.
 
-To enable it:
+At the start of a new chat, ComPewter shows a notice explaining that context sharing is on. To disable it:
 
 ```json
 {
   "Privacy": {
-    "ShareGameContext": true
+    "ShareGameContext": false
   }
 }
 ```
@@ -155,6 +155,7 @@ For clearly unrelated questions, ComPewter is instructed to give a short redirec
   "MaxRetainedMessages": 20,
   "RestrictToStardewTopics": true,
   "Privacy": {
+    "ShareGameContext": true,
     "AllowSpoilers": false,
     "RetainConversationHistory": true
   }
@@ -166,6 +167,7 @@ For clearly unrelated questions, ComPewter is instructed to give a short redirec
 - `MaxResponseTokens`: rough maximum answer length.
 - `MaxRetainedMessages`: how much current-session chat history to keep.
 - `RestrictToStardewTopics`: whether ComPewter should redirect clearly unrelated questions.
+- `ShareGameContext`: whether current save context is sent with questions.
 - `AllowSpoilers`: whether ComPewter may give spoiler-heavy answers.
 - `RetainConversationHistory`: whether recent messages are included for follow-up questions.
 
@@ -174,7 +176,7 @@ For clearly unrelated questions, ComPewter is instructed to give a short redirec
 - If ComPewter says no provider is configured, check `Provider`, model, and key/token settings.
 - If Ollama is unavailable, start Ollama and confirm the model is installed.
 - If OpenAI or Anthropic reports an auth problem, check the API key.
-- If answers ignore your current season or inventory, enable `Privacy.ShareGameContext`.
+- If you do not want current save context sent to the provider, set `Privacy.ShareGameContext` to `false`.
 - If responses time out, increase `RequestTimeoutSeconds` or choose a faster model.
 
 See `docs/troubleshooting.md` for more detail.

@@ -4,5 +4,6 @@ public enum ChatMessageStatus
 {
     Complete,
     Pending,
-    Error
+    Error,
+    Info
 }

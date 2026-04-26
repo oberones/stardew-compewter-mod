@@ -105,7 +105,7 @@
 ### Tests for User Story 2
 
 - [ ] T042 [P] [US2] Add provider validation tests for missing model/key/url cases in `tests/unit/ProviderValidationTests.cs`
-- [ ] T043 [P] [US2] Add config privacy default tests for Disabled provider and context sharing Off in `tests/unit/PrivacyDefaultsTests.cs`
+- [ ] T043 [P] [US2] Add config privacy default tests for Disabled provider and context sharing On with disable notice in `tests/unit/PrivacyDefaultsTests.cs`
 - [X] T044 [P] [US2] Add manual provider configuration checklist in `tests/manual/us2-provider-config.md`
 
 ### Implementation for User Story 2

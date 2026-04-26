@@ -29,10 +29,11 @@ Provider defaults:
 
 Never share `config.json` if it contains secrets.
 
-## Enable Context Sharing
+## Review Context Sharing
 
-Context sharing defaults Off. To make answers use the current season, weather,
-money, inventory summary, and other allowed state, enable `ShareGameContext`.
+Context sharing defaults On. To stop answers from using the current season,
+weather, money, inventory summary, and other allowed state, disable
+`ShareGameContext`.
 
 Sensitive categories such as friendship details, installed mods, and multiplayer
 data remain opt-in.
@@ -49,6 +50,7 @@ data remain opt-in.
 - [ ] Malformed provider response shows friendly error.
 - [ ] Game remains responsive while request is pending.
 - [ ] Repeated submit while pending creates no extra request.
+- [ ] Context sharing On shows an in-chat disable notice.
 - [ ] Context sharing Off excludes automatic game context.
 - [ ] Context sharing On changes daily-planning answer across season/weather.
 - [ ] Spoilers disabled avoids spoiler-heavy broad progression details.
@@ -65,7 +67,7 @@ data remain opt-in.
   URL.
 - Invalid key: check API key/token and selected model.
 - Timeout: increase timeout or check provider/network availability.
-- Generic answers: enable context sharing if you want current-save guidance.
+- Generic answers: confirm context sharing is enabled if you want current-save guidance.
 
 ## Uninstall
 

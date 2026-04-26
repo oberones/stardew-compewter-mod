@@ -9,9 +9,9 @@ The first implementation is intentionally save-safe: it uses a hotkey-only compu
 - Custom in-game chat menu with keyboard input, scrolling, loading, success, and friendly error states.
 - Provider-agnostic AI client architecture for Anthropic, OpenAI, Ollama, and OpenAI-compatible custom endpoints.
 - Strongly typed `config.json` with safe defaults, validation, timeout handling, max response length, and bounded session history.
-- Optional local game context collection for date, season, weather, luck, money, skills, location, inventory, quests, progression, friendships, and installed mods.
+- Local game context collection for date, season, weather, luck, money, skills, location, inventory, quests, and progression, with optional sensitive categories.
 - Soft Stardew-topic guardrails that redirect clearly unrelated questions while preserving Stardew-adjacent topics.
-- Privacy-first defaults: game context sharing is off until enabled, spoiler-heavy answers are off by default, and secrets are redacted from logs.
+- Privacy-aware defaults: game context sharing is on with an in-chat opt-out notice, spoiler-heavy answers are off by default, and secrets are redacted from logs.
 
 ## Requirements
 
@@ -36,12 +36,12 @@ The SMAPI mod build package copies the debug build to the configured Stardew Val
 5. Fill in the provider model, key/token, and base URL where needed.
 6. Press `F8` in-game to open ComPewter.
 
-Context sharing is one of ComPewter's most useful features, but it is privacy-sensitive. To enable context-aware answers, set:
+Context sharing is one of ComPewter's most useful features, so it is enabled by default. ComPewter shows an in-chat notice explaining how to disable it. To turn context sharing off, set:
 
 ```json
 {
   "Privacy": {
-    "ShareGameContext": true
+    "ShareGameContext": false
   }
 }
 ```

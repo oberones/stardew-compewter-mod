@@ -208,6 +208,8 @@ public sealed class ChatMenu : IClickableMenu
             Color color = message.Status == ChatMessageStatus.Error ? Color.DarkRed : Game1.textColor;
             if (message.Status == ChatMessageStatus.Pending)
                 color = Color.DarkSlateGray;
+            if (message.Status == ChatMessageStatus.Info)
+                color = Color.DarkSlateGray;
 
             string wrapped = Game1.parseText($"{label}: {message.Content}", Game1.smallFont, wrapWidth);
             foreach (string line in wrapped.Replace("\r\n", "\n").Split('\n'))
