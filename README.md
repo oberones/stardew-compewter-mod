@@ -148,6 +148,7 @@ By default, ComPewter does not intentionally send player names, farm names, save
 - `docs/troubleshooting.md`: common provider errors
 - `docs/uninstall.md`: save-safety and removal notes
 - `docs/architecture.md`: developer architecture
+- `docs/nexus-page.md`: draft Nexus Mods page text
 
 ## Building From Source
 
