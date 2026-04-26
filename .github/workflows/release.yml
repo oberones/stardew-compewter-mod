@@ -1,0 +1,76 @@
+name: Build and Publish Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build and publish tagged release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify tag is on main
+        shell: bash
+        run: |
+          git fetch origin main
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" "origin/main"; then
+            echo "Tag $GITHUB_REF_NAME does not point to a commit on main."
+            exit 1
+          fi
+
+      - name: Verify tag matches manifest version
+        shell: bash
+        run: |
+          tag_version="${GITHUB_REF_NAME#v}"
+          manifest_version="$(python -c 'import json; print(json.load(open("manifest.json"))["Version"])')"
+          if [ "$tag_version" != "$manifest_version" ]; then
+            echo "Tag version ($tag_version) does not match manifest.json Version ($manifest_version)."
+            exit 1
+          fi
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "6.0.x"
+
+      - name: Restore
+        run: dotnet restore ComPewter.csproj
+
+      - name: Build release package
+        run: dotnet build ComPewter.csproj --configuration Release --no-restore -p:EnableModDeploy=false
+
+      - name: Locate release zip
+        id: package
+        shell: bash
+        run: |
+          zip_path="$(find bin/Release -name 'ComPewter *.zip' -print -quit)"
+          if [ -z "$zip_path" ]; then
+            echo "Could not find generated ComPewter release zip."
+            exit 1
+          fi
+          echo "zip_path=$zip_path" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          if [ -f CHANGELOG.md ]; then
+            gh release create "$GITHUB_REF_NAME" "${{ steps.package.outputs.zip_path }}" \
+              --title "ComPewter $GITHUB_REF_NAME" \
+              --notes-file CHANGELOG.md
+          else
+            gh release create "$GITHUB_REF_NAME" "${{ steps.package.outputs.zip_path }}" \
+              --title "ComPewter $GITHUB_REF_NAME" \
+              --notes "ComPewter release $GITHUB_REF_NAME."
+          fi
